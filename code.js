@@ -1,30 +1,22 @@
 
-
 const rockValue = "rock";
 const scissorValue = "scissor";
 const paperValue = "paper"; 
 
-function computerPlay() {
+let roundWinner = ""; 
+let gameWinner = ""; 
+let humanScore = 0; 
+let computerScore = 0; 
 
-    const  tempValue = Math.floor(Math.random() * 3);
-    let gameValue = ""; 
 
-    if (tempValue === 0) {
-        gameValue = rockValue;
-    }
+let humanChoice = ""; 
 
-    else if (tempValue === 1) {
-        gameValue = paperValue;
-    }
 
-    else if (tempValue === 2){
-        gameValue = scissorValue; 
-    }
+const rockButton = document.getElementById("rock-button");
+const scissorButton = document.getElementById("scissor-button");
+const paperButton = document.getElementById("paper-button"); 
+const resetButton = document.getElementById("play-again-button")
 
- 
-    return gameValue; 
-
-}
 
 function gameRound(computerChoice, humanChoice) {
     let decideWinner = ""; 
@@ -61,37 +53,103 @@ function gameRound(computerChoice, humanChoice) {
 }
 
 
-function game() {
-    let scoreCardComputer = 0;
-    let scoreCardHuman = 0
-
-    for (let i = 0; i < 6; i++) { 
-
-        const computerChoice = computerPlay()
-        const humanChoice = window.prompt('Choose rock, paper or scissor');
-
-        const winner = gameRound(computerChoice, humanChoice);
-
-        if (winner === 'human') scoreCardHuman += 1;
-        else if (winner === 'computer') scoreCardComputer += 1;
-
-        if (winner === "human") {
-            console.log("Round winner is human");
-        }
-
-        else if (winner === "computer") {
-            console.log("Round winner is computer");
-        }
-
-        if (computerChoice === humanChoice) {
-            console.log("Tie");
-        }
-    }
-    console.log("total", "human", scoreCardHuman, "computer", scoreCardComputer)
+rockButton.addEventListener("click", function() {
     
+    humanChoice = rockValue;
+    game(); 
+
+    document.getElementById("summary").innerHTML = (`Human chooses ${humanChoice}. Computer chooses ${computerChoice}. Round winner is: ${roundWinner}. Score:  Human:${humanScore} Computer:${computerScore} `); 
+   
+    if ((computerScore === 5)  || (humanScore === 5)) {
+        document.getElementById("winner").innerHTML = (`The winner of the game is ${gameWinner}.`); 
+    }
+    
+});
+
+paperButton.addEventListener("click", function() {
+    
+    humanChoice = paperValue;
+    game(); 
+    
+    document.getElementById("summary").innerHTML = (`Human chooses ${humanChoice}. Computer chooses ${computerChoice}. Round winner is: ${roundWinner}. Score:  Human:${humanScore} Computer:${computerScore} `); 
+    
+    if ((computerScore === 5)  || (humanScore === 5)) {
+        document.getElementById("winner").innerHTML = (`The winner of the game is ${gameWinner}.`); 
+    }
+    
+});
+
+scissorButton.addEventListener("click", function() {
+    
+    humanChoice = scissorValue;
+    game(); 
+
+    document.getElementById("summary").innerHTML = (`Human chooses ${humanChoice}. Computer chooses ${computerChoice}. Round winner is: ${roundWinner}. Score:  Human:${humanScore} Computer:${computerScore} `); 
+    
+    if ((computerScore === 5)  || (humanScore === 5)) {
+        document.getElementById("winner").innerHTML = (`The winner of the game is ${gameWinner}.`); 
+    }
+    
+});
+
+
+resetButton.addEventListener("click", function() {
+    
+    document.getElementById("summary").innerHTML = "Resetting game";  
+    computerScore = 0; 
+    humanScore = 0; 
+});
+
+
+
+function computerPlay() {
+
+    const  tempValue = Math.floor(Math.random() * 3);
+    let gameValue = "";
+
+
+    if (tempValue === 0) {
+        gameValue = rockValue;
+    }
+
+    else if (tempValue === 1) {
+        gameValue = paperValue;
+    }
+
+    else if (tempValue === 2){
+        gameValue = scissorValue; 
+    }
+
+    return gameValue
+
 }
 
-game();     
+function game() {
 
-/* for (let i = 0; i < ((scoreCardComputer = 5) || (scoreCardHuman = 5) ); i++) {  */
+    computerChoice = computerPlay(); 
+    const winner = gameRound(computerChoice, humanChoice);
+
+    if (winner === 'human') {
+        humanScore += 1;
+        roundWinner = "human"; 
+        
+    } 
+    else if (winner === 'computer') {
+        computerScore += 1;
+        roundWinner = "computer";     
+    } 
+
+    else {
+        roundWinner = "tie"; 
+    }
+
+
+    if (humanScore === 5) {
+        gameWinner = "human"; 
+    }
+
+    else if (computerScore === 5) {
+        gameWinner = "computer"; 
+    }
+}
 
