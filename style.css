@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: pink; 
+    background-color: #FBEEEC; 
 }
 
 .buttons-top {
@@ -27,6 +27,11 @@ body {
     height: 200px;
 }
 
+#winner {
+    display: flex;
+    justify-content: center;
+}
+
 #score {
     font-size: 30px;
     display: flex;
@@ -38,7 +43,30 @@ body {
     justify-content: center;
 }
 
+.icons {
+    background-color: #FBEEEC;
+    border-radius: 15px;
+    border: solid 3px #1D1D1D;
+    width: 100px;
+    opacity: 1;
+    transition: 0.3s;
+}
 
+.icons:active {
+    background-color: #EDEFF2;
+    box-shadow: rgba(225, 228, 232, 0.2) 0 1px 0 inset;
+    transition: none 0s;
+  }
+
+.icons:hover {
+    opacity: 0.6;
+}
+
+.icons-container {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
 
 .button-4 {
   appearance: none;
